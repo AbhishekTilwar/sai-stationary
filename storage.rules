@@ -1,0 +1,41 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { return isSignedIn() && request.auth.token.role == 'admin'; }
+    function isImage() { return request.resource.contentType.matches('image/.*'); }
+    function underSize(mb) { return request.resource.size < mb * 1024 * 1024; }
+    // Files are foldered by mobile number; verified phone is on the token (E.164).
+    function ownsPhone(phone) { return isSignedIn() && request.auth.token.phone_number == '+91' + phone; }
+
+    // Product images: public read, admin upload (max 5MB images).
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && isImage() && underSize(5);
+    }
+
+    // Banners / marketing assets.
+    match /banners/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && isImage() && underSize(5);
+    }
+
+    // Customer-uploaded customization photos (personalized gifts).
+    // Foldered by mobile number; readable by owner + admin.
+    match /customizations/{phone}/{fileName} {
+      allow read: if ownsPhone(phone) || isAdmin();
+      allow write: if ownsPhone(phone) && isImage() && underSize(10);
+    }
+
+    // User avatars (foldered by mobile number).
+    match /avatars/{phone}/{fileName} {
+      allow read: if true;
+      allow write: if ownsPhone(phone) && isImage() && underSize(2);
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---- helpers ----
+    // Customers authenticate with Firebase Phone Auth, and the MOBILE NUMBER is
+    // the document key (10-digit). The verified number is exposed on the token as
+    // an E.164 string, e.g. "+919999999999".
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function authedPhone() {
+      return isSignedIn() ? request.auth.token.phone_number : '';
+    }
+    // `phoneId` is the 10-digit document id / stored field.
+    function ownsPhone(phoneId) {
+      return isSignedIn() && authedPhone() == '+91' + phoneId;
+    }
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.role == 'admin';
+    }
+
+    // ---- products: public read, admin write ----
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ---- categories: public read, admin write ----
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ---- users: keyed by mobile number; owner (verified phone) or admin ----
+    match /users/{phone} {
+      allow read, update: if ownsPhone(phone) || isAdmin();
+      allow create: if ownsPhone(phone);
+      allow delete: if isAdmin();
+
+      // sub-collections (addresses, etc.)
+      match /{sub=**} {
+        allow read, write: if ownsPhone(phone) || isAdmin();
+      }
+    }
+
+    // ---- orders: keyed by orderId; userId stores the customer's mobile number ----
+    match /orders/{orderId} {
+      allow read: if isAdmin() || ownsPhone(resource.data.userId);
+      allow create: if ownsPhone(request.resource.data.userId);
+      allow update, delete: if isAdmin();
+    }
+
+    // ---- reviews: public read, signed-in create (own), admin moderate ----
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if ownsPhone(request.resource.data.userId);
+      allow update, delete: if isAdmin() || ownsPhone(resource.data.userId);
+    }
+
+    // ---- coupons: read for validation, admin write ----
+    match /coupons/{couponId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ---- carts & wishlists: keyed by mobile number, owner-only ----
+    match /carts/{phone} {
+      allow read, write: if ownsPhone(phone);
+    }
+    match /wishlists/{phone} {
+      allow read, write: if ownsPhone(phone);
+    }
+
+    // ---- banners: public read, admin write ----
+    match /banners/{bannerId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
