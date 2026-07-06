@@ -17,6 +17,7 @@ import { formatPrice } from '@/lib/format';
 import { SITE, PAYMENT_METHODS } from '@/config/site';
 import { placeOrder } from '@/services/orderService';
 import { getAddresses, saveAddress } from '@/services/userService';
+import { sendOrderToWhatsApp } from '@/lib/whatsapp';
 
 const STEPS = [
   { id: 1, label: 'Verify', icon: ShieldCheck },
@@ -102,8 +103,11 @@ export default function Checkout() {
         totals: { subtotal, discount, shipping: delivery.price, total },
         user: { phone, name: address.name },
       });
+      // Send the full order to the shop's WhatsApp (opens WhatsApp with a
+      // pre-filled message). Done before clearing the cart / navigating.
+      sendOrderToWhatsApp(order);
       dispatch(clearCart());
-      toast.success('Order placed successfully!');
+      toast.success('Order placed! Sending details on WhatsApp…');
       navigate(`/track/${order.id}`, { state: { justPlaced: true } });
     } catch (e) {
       toast.error(e.message || 'Could not place order');

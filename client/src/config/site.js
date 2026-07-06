@@ -1,8 +1,10 @@
 // Central site configuration & brand constants.
 export const SITE = {
-  name: import.meta.env.VITE_STORE_NAME || 'Sai Stationary',
-  tagline: 'Gifts & Stationery, beautifully delivered',
-  whatsapp: import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999',
+  name: import.meta.env.VITE_STORE_NAME || 'Sai Gift, Stationery and Xerox',
+  shortName: 'Sai Gift & Stationery',
+  tagline: 'Gifts, Stationery & Xerox — beautifully delivered',
+  // Business WhatsApp number (E.164 without +). Orders & support go here.
+  whatsapp: import.meta.env.VITE_WHATSAPP_NUMBER || '917972455343',
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL || '/api',
   currency: '₹',
   freeShippingThreshold: 499,

@@ -1,10 +1,11 @@
 import { useParams, useLocation, Link } from 'react-router-dom';
-import { Check, Circle, CheckCircle2, PartyPopper } from 'lucide-react';
+import { Check, Circle, CheckCircle2, PartyPopper, MessageCircle } from 'lucide-react';
 
 import Seo from '@/components/common/Seo';
 import { getOrderById } from '@/services/orderService';
 import { formatPrice } from '@/lib/format';
-import { ORDER_STATUS_FLOW } from '@/config/site';
+import { ORDER_STATUS_FLOW, SITE } from '@/config/site';
+import { orderWhatsAppLink } from '@/lib/whatsapp';
 
 export default function OrderTracking() {
   const { orderId } = useParams();
@@ -28,12 +29,22 @@ export default function OrderTracking() {
       <Seo title={`Track Order #${order.id}`} />
 
       {state?.justPlaced && (
-        <div className="mb-6 flex items-center gap-3 rounded-2xl bg-accent-50 p-5 text-accent-600">
-          <PartyPopper size={24} />
-          <div>
+        <div className="mb-6 flex flex-col gap-3 rounded-2xl bg-accent-50 p-5 text-accent-600 sm:flex-row sm:items-center">
+          <PartyPopper size={24} className="shrink-0" />
+          <div className="flex-1">
             <p className="font-semibold">Thank you! Your order is confirmed.</p>
-            <p className="text-sm">A confirmation has been sent. We'll keep you posted on WhatsApp & email.</p>
+            <p className="text-sm">
+              Please tap below to send your order to us on WhatsApp so we can confirm and dispatch it.
+            </p>
           </div>
+          <a
+            href={orderWhatsAppLink(order)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn shrink-0 bg-[#25D366] text-white hover:brightness-95"
+          >
+            <MessageCircle size={18} /> Send on WhatsApp
+          </a>
         </div>
       )}
 

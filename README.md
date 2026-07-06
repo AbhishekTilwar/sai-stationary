@@ -1,8 +1,9 @@
-# Sai Stationary — Premium Gifts & Stationery E‑Commerce
+# Sai Gift, Stationery and Xerox — E‑Commerce Platform
 
-A production-ready, mobile-first e‑commerce platform for a gift & stationery store —
-gifts, customized gifts, school & office stationery, art supplies, corporate gifts and
-festival hampers.
+A production-ready, mobile-first e‑commerce platform for a gift, stationery & xerox shop —
+gifts, customized gifts, school & office stationery, art supplies, corporate gifts,
+festival hampers and xerox/printing services. Orders are delivered straight to the shop's
+**WhatsApp** on checkout.
 
 Built with **React + Vite + Tailwind + Redux Toolkit + React Query + Framer Motion** on the
 frontend, **Node/Express** on the backend, and **Firebase (Auth + Firestore + Storage)** as the

@@ -10,6 +10,7 @@ import Newsletter from '@/components/home/Newsletter';
 import SectionHeader from '@/components/common/SectionHeader';
 import ProductCarousel from '@/components/product/ProductCarousel';
 import { fetchProducts } from '@/services/catalogService';
+import { SITE } from '@/config/site';
 
 export default function Home() {
   const { data: products = [], isLoading } = useQuery({
@@ -24,12 +25,28 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Premium Gifts & Stationery"
+        title="Gifts, Stationery & Xerox"
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'Store',
-          name: 'Sai Stationary',
-          description: 'Premium gifts and stationery store.',
+          name: SITE.name,
+          description:
+            'Gifts, customized gifts, school & office stationery, art supplies, festival hampers and xerox/printing services.',
+          image: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=1200&q=80',
+          currenciesAccepted: 'INR',
+          paymentAccepted: 'Cash, UPI, Card, COD',
+          priceRange: '₹₹',
+          telephone: `+${SITE.whatsapp}`,
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: 'IN',
+          },
+          department: [
+            { '@type': 'Store', name: 'Gifts & Hampers' },
+            { '@type': 'Store', name: 'School & Office Stationery' },
+            { '@type': 'Store', name: 'Art Supplies' },
+            { '@type': 'Store', name: 'Xerox & Printing' },
+          ],
         }}
       />
       <Hero />

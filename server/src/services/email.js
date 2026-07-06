@@ -10,7 +10,7 @@ export async function sendEmail({ to, subject, html }) {
 }
 
 export const sendWelcomeEmail = (user) =>
-  sendEmail({ to: user.email, subject: 'Welcome to Sai Stationary 🎉', html: `<p>Hi ${user.name}, welcome!</p>` });
+  sendEmail({ to: user.email, subject: 'Welcome to Sai Gift, Stationery and Xerox 🎉', html: `<p>Hi ${user.name}, welcome!</p>` });
 
 export const sendOrderConfirmation = (order) =>
   sendEmail({
