@@ -24,11 +24,6 @@ const IMG = {
   ribbon: img('photo-1513885535751-8b9238bd345a'),
 };
 
-// Keyword-matched product photos from the internet (LoremFlickr → Flickr CC).
-// Each product gets an image matching its type. The owner can later replace
-// these with real product photos via the admin image upload (Firebase Storage).
-const pic = (q, seed) => `https://loremflickr.com/640/640/${q}?lock=${seed}`;
-
 const inkVariants = [
   { id: 'blue', label: 'Blue', priceDelta: 0 },
   { id: 'black', label: 'Black', priceDelta: 0 },
@@ -455,38 +450,6 @@ export const products = [
     variants: [],
   },
 ];
-
-// Per-product image keyword so each product shows a matching photo.
-// Tags are chosen to be reliable on LoremFlickr (some high-volume tags error out).
-const IMAGE_KEYWORDS = {
-  'pen-cello-butterflow': 'ballpen', 'pen-reynolds-045': 'ballpen', 'pen-reynolds-trimax': 'ballpen',
-  'pen-linc-pentonic': 'ballpen', 'pen-doms-neon': 'ballpen', 'pen-uniball-eye': 'ballpen', 'pen-pilot-v5': 'ballpen',
-  'nb-classmate-172': 'notebook', 'nb-classmate-200': 'notebook', 'nb-classmate-spiral': 'notebook',
-  'nb-navneet-long': 'notebook', 'nb-navneet-160': 'notebook', 'nb-long-register': 'ledger',
-  'pc-apsara-platinum': 'pencil', 'pc-nataraj-621': 'pencil', 'pc-doms-y1': 'pencil',
-  'pc-apsara-eraser': 'eraser', 'pc-doms-sharpener': 'sharpener', 'pc-faber-trigrip': 'pencil',
-  'ch-white': 'sheets', 'ch-colour': 'colorpaper', 'ch-neon': 'colorpaper', 'ch-pastel': 'colorpaper', 'ch-glazed': 'origami',
-  'ar-doms-crayons': 'crayon', 'ar-faber-pastels': 'crayon', 'ar-camel-watercolour': 'watercolour',
-  'ar-camlin-sketch': 'markers', 'ar-doms-sketch-24': 'markers', 'ar-fevicryl': 'painting',
-  'fl-solo-report': 'documents', 'fl-clip-file': 'clipboard', 'fl-display-book': 'documents', 'fl-box-file': 'documents',
-  'of-kangaro-stapler': 'staples', 'of-fevicol': 'glue', 'of-fevistick': 'glue', 'of-cellotape': 'tape',
-  'of-oddy-sticky': 'notepad', 'of-highlighter': 'markers', 'of-geometry-box': 'compass',
-  'of-scale': 'ruler', 'of-scissors': 'scissors',
-  'wr-wrapping-paper': 'giftbox', 'wr-wrapping-roll': 'giftbox', 'wr-curling-ribbon': 'ribbon',
-  'wr-satin-ribbon': 'ribbon', 'wr-kids-stickers': 'sticker', 'wr-glitter-stickers': 'sticker',
-};
-
-// Fallback (used if a keyword photo ever fails to load) — a verified, always-on
-// stationery flat-lay from Unsplash. Referenced by the image components' onError.
-export const PRODUCT_IMAGE_FALLBACK =
-  'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=800&q=80';
-
-// Override the placeholder images with keyword-matched photos (2 per product,
-// distinct seeds so the gallery shows different shots of the same item type).
-products.forEach((p, i) => {
-  const q = IMAGE_KEYWORDS[p.id] || 'stationery';
-  p.images = [pic(q, i * 2 + 1), pic(q, i * 2 + 2)];
-});
 
 export const findProductBySlug = (slug) => products.find((p) => p.slug === slug);
 export const findProductById = (id) => products.find((p) => p.id === id);

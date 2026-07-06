@@ -5,7 +5,6 @@ import { Heart, ShoppingCart } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import Rating from '@/components/common/Rating';
-import { PRODUCT_IMAGE_FALLBACK } from '@/data/products';
 import { formatPrice, discountPercent, classNames } from '@/lib/format';
 import { addToCart } from '@/store/slices/cartSlice';
 import { toggleWishlist, selectWishlistIds } from '@/store/slices/wishlistSlice';
@@ -57,7 +56,6 @@ export default function ProductCard({ product }) {
             src={product.images[0]}
             alt={product.name}
             loading="lazy"
-            onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = PRODUCT_IMAGE_FALLBACK; }}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute left-3 top-3 flex flex-col gap-1">

@@ -10,7 +10,6 @@ import Rating from '@/components/common/Rating';
 import PageLoader from '@/components/common/PageLoader';
 import ProductCard from '@/components/product/ProductCard';
 import { fetchProductBySlug, fetchRelated } from '@/services/catalogService';
-import { PRODUCT_IMAGE_FALLBACK } from '@/data/products';
 import { addToCart } from '@/store/slices/cartSlice';
 import { toggleWishlist, selectWishlistIds } from '@/store/slices/wishlistSlice';
 import { openCartDrawer } from '@/store/slices/uiSlice';
@@ -106,7 +105,6 @@ export default function ProductDetail() {
             <img
               src={product.images[activeImg]}
               alt={product.name}
-              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = PRODUCT_IMAGE_FALLBACK; }}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-125"
             />
           </div>
@@ -119,7 +117,7 @@ export default function ProductDetail() {
                   i === activeImg ? 'border-primary' : 'border-transparent'
                 }`}
               >
-                <img src={src} alt="" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = PRODUCT_IMAGE_FALLBACK; }} className="h-full w-full object-cover" />
+                <img src={src} alt="" className="h-full w-full object-cover" />
               </button>
             ))}
           </div>
