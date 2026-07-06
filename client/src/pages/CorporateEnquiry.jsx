@@ -29,24 +29,24 @@ export default function CorporateEnquiry() {
   };
 
   const whatsappHref = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(
-    'Hi, I have a bulk/corporate gifting enquiry.'
+    'Hi, I have a bulk / school stationery order enquiry.'
   )}`;
 
   return (
     <div className="container-px py-12">
-      <Seo title="Corporate & Bulk Gifting" description="Bulk and corporate gifting enquiries for festivals, employees and clients." />
+      <Seo title="Bulk & School Orders" description="Bulk stationery orders for schools, offices and institutions — volume pricing and local delivery." />
       <div className="grid gap-10 lg:grid-cols-2">
         <div>
-          <span className="badge bg-primary-100 text-primary-700">For Businesses</span>
-          <h1 className="mt-3 font-display text-3xl font-extrabold sm:text-4xl">Corporate & Bulk Gifting</h1>
+          <span className="badge bg-primary-100 text-primary-700">For Schools & Offices</span>
+          <h1 className="mt-3 font-display text-3xl font-extrabold sm:text-4xl">Bulk & School Orders</h1>
           <p className="mt-4 text-gray-600">
-            Impress your clients and reward your team with custom-branded hampers and stationery kits.
-            Get volume pricing, custom packaging and dedicated support.
+            Stocking up for a school, office or institution? Get volume pricing on notebooks, pens,
+            files, chart paper and more — plus dedicated support and local delivery.
           </p>
           <ul className="mt-6 space-y-3 text-sm text-gray-600">
-            <li className="flex items-center gap-2"><Building2 size={18} className="text-primary" /> Custom branding & logo printing</li>
+            <li className="flex items-center gap-2"><Building2 size={18} className="text-primary" /> Best rates on bulk quantities</li>
             <li className="flex items-center gap-2"><Building2 size={18} className="text-primary" /> Volume discounts on 25+ units</li>
-            <li className="flex items-center gap-2"><Building2 size={18} className="text-primary" /> GST invoicing & dedicated manager</li>
+            <li className="flex items-center gap-2"><Building2 size={18} className="text-primary" /> GST invoicing & local delivery</li>
           </ul>
           <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="btn-secondary mt-6 inline-flex">
             Chat on WhatsApp

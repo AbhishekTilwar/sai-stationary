@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Minus, Plus, Trash2, Tag, ShoppingBag, Bookmark } from 'lucide-react';
+import { Minus, Plus, Trash2, Tag, ShoppingBag, Bookmark, MessageCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import Seo from '@/components/common/Seo';
@@ -19,12 +19,11 @@ import {
   removeCoupon,
 } from '@/store/slices/cartSlice';
 import { formatPrice } from '@/lib/format';
-import { SITE } from '@/config/site';
 import { validateCoupon } from '@/services/couponService';
+import { sendCartToWhatsApp } from '@/lib/whatsapp';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const items = useSelector(selectCartItems);
   const saved = useSelector(selectSavedForLater);
   const subtotal = useSelector(selectSubtotal);
@@ -32,8 +31,7 @@ export default function Cart() {
   const coupon = useSelector(selectCoupon);
   const [code, setCode] = useState('');
 
-  const shipping = subtotal >= SITE.freeShippingThreshold || subtotal === 0 ? 0 : 49;
-  const total = Math.max(0, subtotal - discount) + shipping;
+  const total = Math.max(0, subtotal - discount);
 
   const handleApplyCoupon = () => {
     const result = validateCoupon(code.trim(), subtotal);
@@ -159,16 +157,22 @@ export default function Cart() {
               <div className="mt-4 space-y-2 border-t border-gray-100 pt-4 text-sm">
                 <Row label="Subtotal" value={formatPrice(subtotal)} />
                 {discount > 0 && <Row label="Discount" value={`- ${formatPrice(discount)}`} highlight />}
-                <Row label="Shipping" value={shipping === 0 ? 'FREE' : formatPrice(shipping)} />
                 <div className="flex justify-between border-t border-gray-100 pt-3 text-base font-bold">
                   <span>Total</span>
                   <span>{formatPrice(total)}</span>
                 </div>
+                <p className="text-xs text-gray-400">+ delivery charges as applicable</p>
               </div>
 
-              <button onClick={() => navigate('/checkout')} className="btn-primary mt-5 w-full">
-                Proceed to Checkout
+              <button
+                onClick={() => sendCartToWhatsApp(items, { subtotal, discount })}
+                className="btn mt-5 w-full bg-[#25D366] text-white hover:brightness-95"
+              >
+                <MessageCircle size={18} /> Order on WhatsApp
               </button>
+              <p className="mt-2 text-center text-xs text-gray-400">
+                Your order & prices open in WhatsApp — just hit send.
+              </p>
             </div>
           </aside>
         )}

@@ -1,27 +1,29 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { X, Trash2, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { X, Trash2, Minus, Plus, ShoppingBag, MessageCircle } from 'lucide-react';
 
 import { closeCartDrawer } from '@/store/slices/uiSlice';
 import {
   selectCartItems,
   selectSubtotal,
+  selectDiscount,
   updateQty,
   removeFromCart,
 } from '@/store/slices/cartSlice';
 import { formatPrice } from '@/lib/format';
+import { sendCartToWhatsApp } from '@/lib/whatsapp';
 
 export default function CartDrawer() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const open = useSelector((s) => s.ui.cartDrawerOpen);
   const items = useSelector(selectCartItems);
   const subtotal = useSelector(selectSubtotal);
+  const discount = useSelector(selectDiscount);
 
-  const goToCheckout = () => {
+  const orderOnWhatsApp = () => {
+    sendCartToWhatsApp(items, { subtotal, discount });
     dispatch(closeCartDrawer());
-    navigate('/checkout');
   };
 
   return (
@@ -92,8 +94,8 @@ export default function CartDrawer() {
                     <span className="text-gray-500">Subtotal</span>
                     <span className="font-bold">{formatPrice(subtotal)}</span>
                   </div>
-                  <button onClick={goToCheckout} className="btn-primary w-full">
-                    Checkout
+                  <button onClick={orderOnWhatsApp} className="btn w-full bg-[#25D366] text-white hover:brightness-95">
+                    <MessageCircle size={18} /> Order on WhatsApp
                   </button>
                   <Link
                     to="/cart"

@@ -36,7 +36,7 @@ export default function Footer() {
         <div>
           <h4 className="text-sm font-bold">Company</h4>
           <ul className="mt-4 space-y-2 text-sm text-gray-500">
-            <li><Link to="/corporate-enquiry" className="hover:text-primary">Corporate Gifting</Link></li>
+            <li><Link to="/corporate-enquiry" className="hover:text-primary">Bulk / School Orders</Link></li>
             <li><Link to="/account" className="hover:text-primary">My Account</Link></li>
             <li><Link to="/products" className="hover:text-primary">All Products</Link></li>
             <li><a href="#" className="hover:text-primary">Track Order</a></li>

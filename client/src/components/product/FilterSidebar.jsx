@@ -1,7 +1,11 @@
 import { categories } from '@/data/categories';
 import { formatPrice } from '@/lib/format';
 
-const BRANDS = ['Parker', 'Classmate', 'Faber-Castell', 'Lamy', 'Camlin', 'Oddy', 'Sai Stationary', 'Workspace', 'Artisan'];
+const BRANDS = [
+  'Classmate', 'Navneet', 'DOMS', 'Apsara', 'Nataraj', 'Cello', 'Reynolds', 'Linc',
+  'Pilot', 'Uniball', 'Camlin', 'Camel', 'Faber-Castell', 'Fevicryl', 'Fevicol',
+  'Kangaro', 'Oddy', 'Solo', 'Worldone', 'Local',
+];
 
 export default function FilterSidebar({ filters, setFilters, onClose }) {
   const update = (patch) => setFilters((f) => ({ ...f, ...patch }));

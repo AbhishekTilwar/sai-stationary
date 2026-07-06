@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import Rating from '@/components/common/Rating';
 
 const reviews = [
-  { name: 'Priya S.', text: 'The Diwali hamper was beautifully packed and arrived on time. My family loved it!', rating: 5, city: 'Pune' },
-  { name: 'Rahul M.', text: 'Ordered customized mugs for my team. Quality print and great service over WhatsApp.', rating: 5, city: 'Mumbai' },
-  { name: 'Aisha K.', text: 'Back-to-school combo saved me so much time. Everything my kids needed in one box.', rating: 4, city: 'Delhi' },
+  { name: 'Priya S.', text: 'Great prices on Classmate notebooks and bulk pens for my kids\u2019 school. Delivered same day!', rating: 5, city: 'Pune' },
+  { name: 'Rahul M.', text: 'Ordered chart paper and craft supplies for a project over WhatsApp — quick and hassle-free.', rating: 5, city: 'Mumbai' },
+  { name: 'Aisha K.', text: 'Got all our office stationery — files, staplers and sticky notes — in one order. Very convenient.', rating: 4, city: 'Delhi' },
 ];
 
 export default function Testimonials() {

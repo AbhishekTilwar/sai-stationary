@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import StoreLayout from '@/components/layout/StoreLayout';
 import AdminLayout from '@/components/layout/AdminLayout';
@@ -13,7 +13,6 @@ const Home = lazy(() => import('@/pages/Home'));
 const Products = lazy(() => import('@/pages/Products'));
 const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
 const Cart = lazy(() => import('@/pages/Cart'));
-const Checkout = lazy(() => import('@/pages/Checkout'));
 const Wishlist = lazy(() => import('@/pages/Wishlist'));
 const Login = lazy(() => import('@/pages/Login'));
 const Account = lazy(() => import('@/pages/Account'));
@@ -48,8 +47,8 @@ export default function App() {
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/login" element={<Login />} />
             <Route path="/corporate-enquiry" element={<CorporateEnquiry />} />
-            {/* Checkout is open to guests — identity is verified via phone OTP inside the flow. */}
-            <Route path="/checkout" element={<Checkout />} />
+            {/* Ordering now happens via WhatsApp from the cart — no checkout/OTP page. */}
+            <Route path="/checkout" element={<Navigate to="/cart" replace />} />
             <Route
               path="/account/*"
               element={

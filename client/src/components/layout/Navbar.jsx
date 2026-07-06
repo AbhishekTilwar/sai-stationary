@@ -30,8 +30,8 @@ export default function Navbar() {
       {/* Top promo bar */}
       <div className="bg-primary text-center text-xs font-medium text-white">
         <div className="container-px py-1.5">
-          🎉 Free shipping on orders above {SITE.currency}
-          {SITE.freeShippingThreshold} · Use code <span className="font-bold">WELCOME10</span> for 10% off
+          🎉 Free local delivery on orders above {SITE.currency}
+          {SITE.freeShippingThreshold} · Order easily on WhatsApp
         </div>
       </div>
 
@@ -115,7 +115,7 @@ export default function Navbar() {
             </NavLink>
           ))}
           <NavLink to="/corporate-enquiry" className={navItemClass}>
-            Corporate Gifting
+            Bulk / School Orders
           </NavLink>
         </div>
       </div>
