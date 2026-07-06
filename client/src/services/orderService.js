@@ -11,7 +11,12 @@ import { SITE } from '@/config/site';
 
 const ORDERS_KEY = 'sai_demo_orders';
 
-const isBackendLive = () => Boolean(import.meta.env.VITE_RAZORPAY_KEY_ID);
+// ⚠️ TEMPORARILY DISABLED — Razorpay isn't live yet, so every order is placed in
+// demo mode (no online charge; the order is still recorded and sent to WhatsApp).
+// To go live: restore the line below and set VITE_RAZORPAY_KEY_ID + backend keys.
+//
+// const isBackendLive = () => Boolean(import.meta.env.VITE_RAZORPAY_KEY_ID);
+const isBackendLive = () => false;
 
 function readOrders() {
   try {

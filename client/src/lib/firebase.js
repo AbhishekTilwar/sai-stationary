@@ -17,7 +17,13 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-export const isFirebaseConfigured = Boolean(firebaseConfig.apiKey && firebaseConfig.projectId);
+// ⚠️ TEMPORARILY DISABLED — Firebase is not set up yet, so we force demo mode.
+// The whole app runs on local/mock data (auth via OTP 123456, orders in
+// localStorage). To go live: restore the line below and set the VITE_FIREBASE_*
+// env vars.
+//
+// export const isFirebaseConfigured = Boolean(firebaseConfig.apiKey && firebaseConfig.projectId);
+export const isFirebaseConfigured = false;
 
 let app = null;
 let auth = null;

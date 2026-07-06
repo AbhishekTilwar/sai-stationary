@@ -240,7 +240,8 @@ export default function Checkout() {
               <PaymentOption id={PAYMENT_METHODS.RAZORPAY} payment={payment} setPayment={setPayment} title="Razorpay (All methods)" desc="Secure checkout via Razorpay" />
               {payment !== PAYMENT_METHODS.COD && (
                 <p className="rounded-lg bg-secondary-50 p-3 text-xs text-secondary-600">
-                  Online payments use Razorpay. In demo mode the order is placed without a live charge.
+                  Online payments are coming soon. For now your order is confirmed over WhatsApp and
+                  paid on delivery — we'll message you to arrange payment.
                 </p>
               )}
             </div>
